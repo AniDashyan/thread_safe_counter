@@ -116,8 +116,8 @@ int main(int argc, char** argv) {
     results.push_back(run_test(num_threads, increments_per_thread, MemoryOrder::ACQ_REL));
 
     // Write results to CSV
-    zen::file out_file("results.csv");
-    if (!out_file.is_open()) {
+    std::ofstream out_file("results.csv");
+    if (!out_file) {
         zen::log(zen::color::red("Error: Could not open results.csv"));
         return 1;
     }

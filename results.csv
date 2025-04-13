@@ -1,6 +1,6 @@
 MemoryOrder,CounterValue,DurationMs
-seq_cst,4000000,53
-relaxed,4000000,50
-acquire,4000000,53
-release,4000000,48
-acq_rel,4000000,48
+seq_cst,4000000,28
+relaxed,4000000,60
+acquire,4000000,42
+release,4000000,55
+acq_rel,4000000,50
