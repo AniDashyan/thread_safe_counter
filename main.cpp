@@ -115,6 +115,25 @@ int main(int argc, char** argv) {
     results.push_back(run_test(num_threads, increments_per_thread, MemoryOrder::RELEASE));
     results.push_back(run_test(num_threads, increments_per_thread, MemoryOrder::ACQ_REL));
 
+    // Write results to CSV
+    zen::file out_file("results.csv");
+    if (!out_file.is_open()) {
+        zen::log(zen::color::red("Error: Could not open results.csv"));
+        return 1;
+    }
+
+    out_file << "MemoryOrder,CounterValue,DurationMs\n";
+    for (const auto& result : results) {
+        auto row = std::format(
+            "{},{},{}\n",
+            result.order_name,
+            result.counter_value,
+            result.duration_ms
+        );
+        out_file << row;
+    }
+    out_file.close();
+
 
     auto config = std::format(
         "Configuration:\n"
@@ -144,6 +163,9 @@ int main(int argc, char** argv) {
         );
         zen::print(row.c_str());
     }
+
+    zen::log("");
+    zen::log("Results written to results.csv for plotting");
 
     return 0;
 }
